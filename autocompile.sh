@@ -11,6 +11,9 @@ fi
 
 #Quick first check to see if there is a file extension
 if grep -iq ".*" $1; then
+    #Makes a directory for docker to pull from and copies a version of the file into it
+    mkdir dockerTemp
+    cp $1 ./dockerTemp
 
     if grep -iq ".py" $1; then
         docker build -f Dockerfile.py -t pyDockerAPKImage .
@@ -28,6 +31,8 @@ if grep -iq ".*" $1; then
     if grep -iq ".sh" $1; then
         :
     fi
+
+    rm -r dockerTemp
 
 else
     echo "File extension could not be found, or language is unsupported"
