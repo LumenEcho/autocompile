@@ -4,4 +4,4 @@ WORKDIR /usr/local/app
 
 COPY ./dockerTemp ./
 
-CMD ["python3", "dockerCode"]
+CMD ["python3", "dockerCode.py"]

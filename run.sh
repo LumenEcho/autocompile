@@ -23,40 +23,42 @@ if grep -iq ".*" "$1"; then
 
     #Determine file type based off of file extension
     # Python
-    if grep -iq ".py" "$1"; then
+    if [[ "$1" == *.py ]]; then
+        mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.py
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
         sudo docker image rm "python:3.11.15-slim-trixie"
-    fi
     # C++
-    if grep -iq ".cpp" "$1"; then
+    elif [[ "$1" == *.cpp ]]; then
+        mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.cpp
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.cpp -t $DOCKERIMAGENAME .
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "gcc:trixie"
-    fi
+        sudo docker image rm "frolvlad/alpine-gxx:buildcache-linux-amd64"
     # C
-    #if grep -iqw "*.c" $1; then
+    elif [[ "$1" == *.c ]]; then
+        mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.c
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
-        #sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
-        #sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
+        sudo docker build -f ./Dockerfiles/Dockerfile.c -t $DOCKERIMAGENAME .
+        sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        #sudo docker image rm "python:3.11.15-slim-trixie"
-    #fi
+        sudo docker image rm "frolvlad/alpine-gcc:buildcache-linux-arm64"
+    fi
 
     # Bash
-    #elif grep -iqw "*.sh" $1; then
+    elif [[ "$1" == *.sh ]]; then
+        mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.sh
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
-        #sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
-       # sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
+        sudo docker build -f ./Dockerfiles/Dockerfile.sh -t $DOCKERIMAGENAME .
+        sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-       # sudo docker image rm "python:3.11.15-slim-trixie"
-    #else
-       # echo "File extension could not be found or language is unsupported"
-    #fi
+        sudo docker image rm "alpine:3.22.4"
+    else
+       echo "File extension could not be found or language is unsupported"
+    fi
 
     #Cleanup
     rm -r dockerTemp

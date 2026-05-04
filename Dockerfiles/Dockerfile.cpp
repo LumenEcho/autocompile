@@ -1,7 +1,9 @@
-FROM gcc:trixie
+FROM frolvlad/alpine-gxx:buildcache-linux-amd64
 
 WORKDIR /usr/local/app
 
 COPY ./dockerTemp ./
 
-CMD ["g++", "dockerCode"]
+RUN g++ dockerCode.cpp -o outFile
+
+CMD ["./outFile"]
