@@ -22,6 +22,7 @@ if grep -iq ".*" $1; then
     cp $1 ./dockerTemp/dockerCode
 
     #Determine file type based off of file extension
+    # Python
     if grep -iq ".py" $1; then
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
@@ -29,17 +30,29 @@ if grep -iq ".*" $1; then
         #Removes the base image
         sudo docker image rm "python:3.11.15-slim-trixie"
     fi
-
+    # C
     if grep -iq ".c" $1; then
-        :
+        #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
+        sudo docker build -f ./Dockerfiles/Dockerfile.c -t $DOCKERIMAGENAME .
+        sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
+        #Removes the base image
+        sudo docker image rm "python:3.11.15-slim-trixie"
     fi
-
+    # C++
     if grep -iq ".cpp" $1; then
-        :
+        #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
+        sudo docker build -f ./Dockerfiles/Dockerfile.cpp -t $DOCKERIMAGENAME .
+        sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
+        #Removes the base image
+        sudo docker image rm "gcc:trixie"
     fi
-
+    # Bash
     if grep -iq ".sh" $1; then
-        :
+        #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
+        sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
+        sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
+        #Removes the base image
+        sudo docker image rm "python:3.11.15-slim-trixie"
     fi
 
     #Cleanup
