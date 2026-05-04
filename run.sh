@@ -73,4 +73,4 @@ else
     exit 1
 fi
 
-echo "ebcdefg
+echo "ebcdefg"
