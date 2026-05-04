@@ -13,11 +13,13 @@ fi
 if grep -iq ".*" $1; then
     #Makes a directory for docker to pull from and copies a version of the file into it
     mkdir dockerTemp
-    cp $1 ./dockerTemp
+    #Copies the specified file and moves it into dockerTemp under the generic name dockerCode (for the dockers to know what to run)
+    cp $1 ./dockerTemp/dockerCode
 
     if grep -iq ".py" $1; then
-        docker build -f Dockerfile.py -t pyDockerAPKImage .
-        docker run --name pyDockerAPKContainer pyDockerAPKImage
+        #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
+        docker build -f ./Dockerfiles/Dockerfile.py -t pyDockerImage .
+        docker run --name pyDockerAPKContainer pyDockerImage
     fi
 
     if grep -iq ".c" $1; then
