@@ -15,7 +15,7 @@ if [[ -z "$1" ]] || [[ $# -gt 1 ]]; then
 fi
 
 #Quick first check to see if there is a file extension
-if grep -iq ".*" "$1"; then
+if [[ "$1" == *.* ]]; then
     #Makes a directory for docker to pull from and copies a version of the file into it
     mkdir dockerTemp
     #Copies the specified file and moves it into dockerTemp under the generic name dockerCode (for the dockers to know what to run)
@@ -46,7 +46,6 @@ if grep -iq ".*" "$1"; then
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
         sudo docker image rm "frolvlad/alpine-gcc:buildcache-linux-arm64"
-    fi
 
     # Bash
     elif [[ "$1" == *.sh ]]; then
