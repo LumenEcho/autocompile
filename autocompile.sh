@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # This takes 1 argument, which is the name of the file to be compiled
+#Needs to install docker.io
 
 #Checks to see if the argument exists, and if there are enough arguments
 if [[ -z "$1" ]] || [[ $# -gt 1 ]]; then
@@ -9,23 +10,23 @@ if [[ -z "$1" ]] || [[ $# -gt 1 ]]; then
 fi
 
 #Quick first check to see if there is a file extension
-if [[ $1 || grep -i ".*" ]]; then
+if grep -iq ".*" $1; then
 
-    if [[ grep -i ".py" ]]; then
+    if grep -iq ".py" $1; then
         docker build -f Dockerfile.py -t pyDockerAPKImage .
         docker run --name pyDockerAPKContainer pyDockerAPKImage
     fi
 
-    if [[ grep -i ".sh" ]]; then
-
+    if grep -iq ".c" $1; then
+        :
     fi
 
-    if [[ grep -i ".cpp" ]]; then
-
+    if grep -iq ".cpp" $1; then
+        :
     fi
 
-    if [[grep -i ".c" ]]; then
-
+    if grep -iq ".sh" $1; then
+        :
     fi
 
 else
