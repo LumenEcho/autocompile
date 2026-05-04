@@ -27,6 +27,7 @@ if [[ "$1" == *.* ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.py
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
+        #clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
         sudo docker image rm "python:3.11.15-slim-trixie"
@@ -35,23 +36,26 @@ if [[ "$1" == *.* ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.cpp
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.cpp -t $DOCKERIMAGENAME .
+        #clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "frolvlad/alpine-gxx:buildcache-linux-amd64"
+        sudo docker image rm "gcc:trixie"
     # C
     elif [[ "$1" == *.c ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.c
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.c -t $DOCKERIMAGENAME .
+        #clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "frolvlad/alpine-gcc:buildcache-linux-arm64"
+        sudo docker image rm "gcc:trixie"
 
     # Bash
     elif [[ "$1" == *.sh ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.sh
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.sh -t $DOCKERIMAGENAME .
+        #clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
         sudo docker image rm "alpine:3.22.4"

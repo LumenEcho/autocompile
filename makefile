@@ -1,5 +1,5 @@
 run: run.sh
-	@if !d ocker -v ; then \
+	@if ! docker -v ; then \
 	    echo "Installing docker"; \
 	    sudo apt install docker.io; \
 	fi;

@@ -6,4 +6,6 @@ COPY ./dockerTemp ./
 
 RUN chmod 777 dockerCode.sh
 
-CMD ["./dockerCode.sh"]
+RUN ls -alh
+
+CMD ["ash", "./dockerCode.sh"]
