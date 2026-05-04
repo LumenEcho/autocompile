@@ -5,6 +5,9 @@ Run is a very simple program. You execute the "run.sh" script and give is a code
 Command syntax:
 ./run [code file path]
 
+ALTERNATIVELY:
+make run
+
 Supported file types:
 - .py
 - .sh
