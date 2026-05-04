@@ -27,46 +27,46 @@ if [[ "$1" == *.* ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.py
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.py -t $DOCKERIMAGENAME .
-        #clear
+        clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "python:3.11.15-slim-trixie"
+        sudo docker image rm "python:3.11.15-slim-trixie" > /dev/null
     # C++
     elif [[ "$1" == *.cpp ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.cpp
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.cpp -t $DOCKERIMAGENAME .
-        #clear
+        clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "gcc:trixie"
+        sudo docker image rm "gcc:trixie" > /dev/null
     # C
     elif [[ "$1" == *.c ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.c
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.c -t $DOCKERIMAGENAME .
-        #clear
+        clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "gcc:trixie"
+        sudo docker image rm "gcc:trixie" > /dev/null
 
     # Bash
     elif [[ "$1" == *.sh ]]; then
         mv ./dockerTemp/dockerCode ./dockerTemp/dockerCode.sh
         #Builds image. -f is which Dockerfile to use and from where. -t is docker image name. "." is where the docker will reside
         sudo docker build -f ./Dockerfiles/Dockerfile.sh -t $DOCKERIMAGENAME .
-        #clear
+        clear
         sudo docker run --name $DOCKERCONTAINERNAME $DOCKERIMAGENAME
         #Removes the base image
-        sudo docker image rm "alpine:3.22.4"
+        sudo docker image rm "alpine:3.22.4" > /dev/null
     else
        echo "File extension could not be found or language is unsupported"
     fi
 
     #Cleanup
     rm -r dockerTemp
-    sudo docker image rm $CLEANUPDOCKERIMAGENAME -f
-    sudo docker container rm $DOCKERCONTAINERNAME
+    sudo docker image rm $CLEANUPDOCKERIMAGENAME -f > /dev/null
+    sudo docker container rm $DOCKERCONTAINERNAME > /dev/null
 else
     echo "File extension could not be found, or language is unsupported"
     exit 1
