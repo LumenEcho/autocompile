@@ -67,6 +67,7 @@ if [[ "$1" == *.* ]]; then
     rm -r dockerTemp
     sudo docker image rm $CLEANUPDOCKERIMAGENAME -f > /dev/null
     sudo docker container rm $DOCKERCONTAINERNAME > /dev/null
+    echo "Everything Docker related has automatically been cleaned up. You're welcome"
 else
     echo "File extension could not be found, or language is unsupported"
     exit 1
